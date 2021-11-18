@@ -1,0 +1,16 @@
+﻿<Window x:Class="TestsWpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestsWpf"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <GroupBox Content="{Binding Path=CurrentTest}" Header="Тест" Margin="60,20,10,60" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Width="50" HorizontalAlignment="Left" Margin="10,10,0,10">
+            <WrapPanel Name="Wrap" Orientation="Vertical"/>
+        </ScrollViewer>
+        <Button Content="Завершить тест" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" Width="130" Height="33"/>
+    </Grid>
+</Window>
