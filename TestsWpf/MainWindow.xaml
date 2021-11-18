@@ -11,6 +11,6 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto" Width="50" HorizontalAlignment="Left" Margin="10,10,0,10">
             <WrapPanel Name="Wrap" Orientation="Vertical"/>
         </ScrollViewer>
-        <Button Content="Завершить тест" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" Width="130" Height="33"/>
+        <Button Content="Завершить тест" Command="{Binding Path=Complite}" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" Width="130" Height="33"/>
     </Grid>
 </Window>
