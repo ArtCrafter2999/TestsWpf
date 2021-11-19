@@ -11,57 +11,22 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Threading;
+using System.Xml;
 using System.Windows.Controls.Primitives;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Command;
+using Microsoft.Win32;
+using System.IO;
 
 namespace TestsWpf
 {
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
         public TestField CurrentTest { get; set; }
-        public List<TestModel> Tests { get; set; } = new List<TestModel>() 
-        {
-            new TestModel()
-            {
-                Question = "Тестовый вопрос (Обычный)",
-                MultipleAnswer = false,
-                Answers = new List<Answer>()
-            {
-                new Answer("вариант ответа 1 (Приавельный)") { IsCorrect = true},
-                new Answer("вариант ответа 2"),
-                new Answer("вариант ответа 3")
-            } },
-            new TestModel()
-            {
-                Question = "Тестовый вопрос (Множественный)",
-                MultipleAnswer = true,
-                Answers = new List<Answer>()
-            {
-                new Answer("вариант ответа 1 (Правельный)"){ IsCorrect = true},
-                new Answer("вариант ответа 2"),
-                new Answer("вариант ответа 3 (Тоже правельный)"){ IsCorrect = true},
-                new Answer("вариант ответа 4"),
-                new Answer("вариант ответа 5 (и этот конечно тоже)"){ IsCorrect = true}
-            } },
-            new TestModel()
-            {
-                Question = "Тестовый вопрос (Множественный, Строгий)",
-                MultipleAnswer = true,
-                StrictAnswer = true,
-                Answers = new List<Answer>()
-            {
-                new Answer("вариант ответа 1 (Правельный)"){ IsCorrect = true},
-                new Answer("вариант ответа 2"),
-                new Answer("вариант ответа 3 (Тоже правельный)"){ IsCorrect = true},
-                new Answer("вариант ответа 4")
-            } },
-        };
         public ICommand Complite => new RelayCommand(o =>
         {
-            if(MessageBox.Show("Вы уверены что хотите зваершить тест?","Внимание", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            if (MessageBox.Show("Вы уверены что хотите зваершить тест?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 UserAnswers();
                 decimal PointsSum = 0m;
@@ -72,7 +37,7 @@ namespace TestsWpf
                     {
                         if (!Test.Test.MultipleAnswer)
                         {
-                            if(Test.UserAnswers[0].IsCorrect) PointsSum++;
+                            if (Test.UserAnswers[0].IsCorrect) PointsSum++;
                         }
                         else if (Test.Test.MultipleAnswer && Test.Test.StrictAnswer)
                         {
@@ -107,9 +72,10 @@ namespace TestsWpf
                         }
                     }
                 }
-                MessageBox.Show($"Тест завершён: \nПравильно отвечено на {PointsSum:0.##} вопросов из {Tests.Count}\nПроцент ответов: {(PointsSum/Tests.Count * 100):0.##}%\nПолучено балов: {(PointsSum / Tests.Count * 12):0}/12", "Тест завершён", MessageBoxButton.OK);
+                MessageBox.Show($"Тест завершён: \nПравильно отвечено на {PointsSum:0.##} вопросов из {Tests.Count}\nПроцент ответов: {PointsSum / Tests.Count * 100:0.##}%\nПолучено балов: {(PointsSum / Tests.Count * MaxPoints):0}/{MaxPoints}", "Тест завершён", MessageBoxButton.OK);
             }
-        }, o => {
+        }, o =>
+        {
             foreach (TestButton TestButton in Wrap.Children)
             {
                 var Test = TestButton.DataContext as TestField;
@@ -133,7 +99,7 @@ namespace TestsWpf
                     {
                         if (toggleButton.IsChecked.Value)
                         {
-                            CurrentTest.UserAnswers.Add(CurrentTest.Test.Answers.Find(o=> o == toggleButton.Content));
+                            CurrentTest.UserAnswers.Add(CurrentTest.Test.Answers.Find(o => o == toggleButton.Content));
                             NotToggled = false;
                         }
                         else
@@ -153,12 +119,61 @@ namespace TestsWpf
                 CurrentTest.OnPropertyChanged("ButtonColor");
             }
         }
+
+        public List<TestModel> Tests { get; set; } = new List<TestModel>();
+        public string Time;
+        public int MaxPoints;
         public MainWindow()
         {
             InitializeComponent();
             DataContext = this;
-            ShowTests();
+
+            var Open = new OpenFileDialog();
+            Open.Filter = "Text File|*.txt|Test File|*.test";
+            if (Open.ShowDialog() == true)
+            {
+                try
+                {
+                    string xml = File.ReadAllText(Open.FileName);
+                    XmlDocument xDoc = new XmlDocument();
+                    xDoc.LoadXml(xml);
+                    XmlElement TestsNode = xDoc.DocumentElement;
+                    Title = TestsNode.Attributes.GetNamedItem("Title").Value;
+                    Time = TestsNode.Attributes.GetNamedItem("Time").Value;
+                    MaxPoints = int.Parse(TestsNode.Attributes.GetNamedItem("MaxPoints").Value);
+                    foreach (XmlNode TestNode in TestsNode.ChildNodes)
+                    {
+                        var Test = new TestModel();
+                        Test.MultipleAnswer = bool.Parse(TestNode.Attributes.GetNamedItem("MultipleAnswers").Value);
+                        Test.StrictAnswer = bool.Parse(TestNode.Attributes.GetNamedItem("StrictAnswer").Value);
+                        foreach (XmlNode ChildNode in TestNode.ChildNodes)
+                        {
+                            if (ChildNode.Name == "Question")
+                            {
+                                Test.Question = ChildNode.InnerText;
+                            }
+                            else if (ChildNode.Name == "Answer")
+                            {
+                                Test.Answers.Add(new Answer(ChildNode.InnerText) { IsCorrect = bool.Parse(ChildNode.Attributes.GetNamedItem("IsCorrect").Value) });
+                            }
+                        }
+                        Tests.Add(Test);
+                    }
+                    ShowTests();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Close();
+                }
+            }
+            else
+            {
+                Close();
+            }
+
         }
+
         public void ShowTests()
         {
             int i = 1;

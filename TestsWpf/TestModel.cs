@@ -11,6 +11,6 @@ namespace TestsWpf
         public string Question { get; set; }
         public bool MultipleAnswer { get; set; } = false;
         public bool StrictAnswer { get; set; } = false;
-        public List<Answer> Answers { get; set; }
+        public List<Answer> Answers { get; set; } = new List<Answer>();
     }
 }

@@ -61,16 +61,39 @@ namespace TestsWpf
         }
         public void ReloadTest()
         {
-            Stack.Children.Add(new TextBlock() { Text = Test.Question, IsHyphenationEnabled = true, FontSize=20 });
-            foreach (var Answer in Test.Answers)
+            var random = new Random();
+            Stack.Children.Add(new TextBlock() { Text = Test.Question, IsHyphenationEnabled = true, FontSize = 20 });
+            bool[] getted = new bool[Test.Answers.Count];
+            for (int i = 0; i < Test.Answers.Count; i++)
             {
+                getted[i] = false;
+            }
+            bool access = false;
+            while (!access)
+            {
+                access = true;
+                int i;
+                do
+                {
+                    i = random.Next(0, Test.Answers.Count);
+                } while (getted[i] == true);
                 if (Test.MultipleAnswer)
                 {
-                    Stack.Children.Add(new CheckBox() { Content = Answer, FontSize = 16 });
+                    Stack.Children.Add(new CheckBox() { Content = Test.Answers[i], FontSize = 16 });
+                    getted[i] = true;
                 }
                 else
                 {
-                    Stack.Children.Add(new RadioButton() { Content = Answer, FontSize = 16 });
+                    Stack.Children.Add(new RadioButton() { Content = Test.Answers[i], FontSize = 16 });
+                    getted[i] = true;
+                }
+                foreach (var item in getted)
+                {
+                    if (item == false)
+                    {
+                        access = false;
+                        break;
+                    }
                 }
             }
         }
