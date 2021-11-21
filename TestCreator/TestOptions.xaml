@@ -1,0 +1,24 @@
+﻿<Window x:Class="TestCreator.TestOptions"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestCreator"
+        mc:Ignorable="d"
+        Title="TestOptions" Height="224" Width="350">
+    <Grid>
+        <Label Content="Название теста:" Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <TextBox Text="{Binding Path=Title, UpdateSourceTrigger=PropertyChanged}" Margin="111,15,10,0" VerticalAlignment="Top"/>
+        <Label Content="Максмиальный балл:" Margin="10,40,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <TextBox Text="{Binding Path=MaxPoints, UpdateSourceTrigger=PropertyChanged}" Margin="141,45,148,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Перетасовывать вопросы" IsChecked="{Binding Path=RandomQuestions}" Margin="10,71,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Button Command="{Binding Path=OptionsClose, UpdateSourceTrigger=PropertyChanged}" CommandParameter="" Content = "OK" Margin="0,0,10,10" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="25" Width="70"/>
+        <Label Content="На прохождение" Margin="10,91,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Label Content="Часов" Margin="68,117,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <TextBox Text="{Binding Path=Hours, UpdateSourceTrigger=PropertyChanged}"  Margin="10,122,279,0" VerticalAlignment="Top"/>
+        <Label Content="Минут" Margin="174,117,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <TextBox Text="{Binding Path=Minutes, UpdateSourceTrigger=PropertyChanged}" Margin="116,122,173,0" VerticalAlignment="Top"/>
+        <Label Content="Секунд" Margin="282,117,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <TextBox Text="{Binding Path=Seconds, UpdateSourceTrigger=PropertyChanged}" Margin="224,122,65,0" VerticalAlignment="Top"/>
+    </Grid>
+</Window>

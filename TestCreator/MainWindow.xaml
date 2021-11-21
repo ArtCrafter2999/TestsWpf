@@ -1,0 +1,21 @@
+﻿<Window x:Class="TestCreator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestCreator"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Menu Height="25" VerticalAlignment="Top">
+            <MenuItem Header="Проект">
+                <MenuItem Header="Сохранить как"/>
+                <MenuItem Header="Настройки"/>   
+            </MenuItem>
+        </Menu>
+        <GroupBox Content="{Binding Path=CurrentTest}" Header="Тест" FontSize="16" Margin="60,20,10,60" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Width="60" HorizontalAlignment="Left" Margin="0,20,0,10">
+            <WrapPanel Name="Wrap" Orientation="Vertical"/>
+        </ScrollViewer>
+    </Grid>
+</Window>

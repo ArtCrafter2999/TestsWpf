@@ -56,12 +56,16 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Answer.cs" />
+    <Compile Include="Log.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="TestButton.xaml.cs">
       <DependentUpon>TestButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="TestField.xaml.cs">
       <DependentUpon>TestField.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TestInfo.xaml.cs">
+      <DependentUpon>TestInfo.xaml</DependentUpon>
     </Compile>
     <Compile Include="TestModel.cs" />
     <Page Include="MainWindow.xaml">
@@ -81,6 +85,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TestField.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TestInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
