@@ -10,11 +10,12 @@
         <Menu Height="25" VerticalAlignment="Top">
             <MenuItem Header="Проект">
                 <MenuItem Header="Сохранить как"/>
-                <MenuItem Header="Настройки"/>   
+                <MenuItem Header="Настройки" Command="{Binding Path=Options}"/>   
             </MenuItem>
         </Menu>
-        <GroupBox Content="{Binding Path=CurrentTest}" Header="Тест" FontSize="16" Margin="60,20,10,60" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Width="60" HorizontalAlignment="Left" Margin="0,20,0,10">
+        <!--Content="{Binding Path=CurrentTest}"-->
+        <GroupBox Name="MyGroup" Header="Тест" FontSize="16" Margin="60,20,10,60" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Width="60" HorizontalAlignment="Left" Margin="0,30,0,10">
             <WrapPanel Name="Wrap" Orientation="Vertical"/>
         </ScrollViewer>
     </Grid>

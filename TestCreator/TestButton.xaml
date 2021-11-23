@@ -1,0 +1,10 @@
+﻿<UserControl x:Class="TestCreator.TestButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TestCreator"
+             mc:Ignorable="d" 
+             d:DesignHeight="40" d:DesignWidth="40">
+    <Button Content="{Binding Path=ButtonTitle}" Command="{Binding Path=SelectCommand}" Height="40" Margin="0"/>
+</UserControl>

@@ -13,56 +13,57 @@ namespace TestCreator
     {
         public ICommand SelectCommand => new RelayCommand(o =>
         {
+            ReloadTest();
             From.CurrentTest = this;
-            From.OnPropertyChanged("CurrentTest");
+        });
+        public ICommand AddAnswer => new RelayCommand(o => 
+        {
+            var Answer = new Answer();
+            Test.Answers.Add(Answer);
+            Stack.Children.Add(new AnswerModel(Answer, Stack.Children));
+            ReloadTest();
         });
         public string ButtonTitle { get; set; }
-        public List<Answer> UserAnswers = new List<Answer>();
         public MainWindow From;
         public TestModel Test;
-        public TestField(MainWindow from, TestModel Question)
+        public TestField(MainWindow from, TestModel test)
         {
             InitializeComponent();
             DataContext = this;
             From = from;
-            Test = Question;
-            ReloadTest();
+            Test = test;
         }
         public void ReloadTest()
         {
-            var random = new Random();
-            Stack.Children.Add(new TextBlock() { Text = Test.Question, TextWrapping = TextWrapping.Wrap, FontSize = 20 });
-            bool[] getted = new bool[Test.Answers.Count];
-            for (int i = 0; i < Test.Answers.Count; i++)
+            Form();
+            Stack.Children.Clear();
+            Stack.Children.Add(new TextBox() { Text = Test.Question, TextWrapping = TextWrapping.Wrap, FontSize = 20 });
+            Stack.Children.Add(new CheckBox() { Content = "Мульти-ответ", IsChecked = Test.MultipleAnswer });
+            if (Test.MultipleAnswer == true)
             {
-                getted[i] = false;
+                Stack.Children.Add(new CheckBox() { Content = "Строгий-ответ", IsChecked = Test.StrictAnswer });
             }
-            bool access = false;
-            while (!access)
+            else
             {
-                access = true;
-                int i;
-                do
-                {
-                    i = random.Next(0, Test.Answers.Count);
-                } while (getted[i] == true);
+                Test.StrictAnswer = false;
+            }
+            Stack.Children.Add(new Separator());
+            foreach (var Answer in Test.Answers)
+            {
+                Stack.Children.Add(new AnswerModel(Answer, Stack.Children));
+            }
+            Stack.Children.Add(new Button() { Content = "+ Добавить вопрос", FontSize = 16, Command = AddAnswer });
+        }
+        public void Form()
+        {
+            if (Stack.Children.Count != 0)
+            {
+                Test = new TestModel();
+                Test.Question = (Stack.Children[0] as TextBox).Text;
+                Test.MultipleAnswer = (Stack.Children[1] as CheckBox).IsChecked.Value;
                 if (Test.MultipleAnswer)
                 {
-                    Stack.Children.Add(new CheckBox() { Content = Test.Answers[i], FontSize = 16 });
-                    getted[i] = true;
-                }
-                else
-                {
-                    Stack.Children.Add(new RadioButton() { Content = Test.Answers[i], FontSize = 16 });
-                    getted[i] = true;
-                }
-                foreach (var item in getted)
-                {
-                    if (item == false)
-                    {
-                        access = false;
-                        break;
-                    }
+                    Test.StrictAnswer = (Stack.Children[2] as CheckBox).IsChecked.Value;
                 }
             }
         }

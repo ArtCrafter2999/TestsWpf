@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Command;
+using System.Windows;
 
 namespace TestsWpf
 {
@@ -61,7 +62,9 @@ namespace TestsWpf
         public void ReloadTest()
         {
             var random = new Random();
-            Stack.Children.Add(new TextBlock() { Text = Test.Question, IsHyphenationEnabled = true, FontSize = 20 });
+            Stack.Children.Add(new TextBlock() { Text = Test.Question, TextWrapping=TextWrapping.Wrap, FontSize = 20 });
+            Stack.Children.Add(new Separator());
+
             bool[] getted = new bool[Test.Answers.Count];
             for (int i = 0; i < Test.Answers.Count; i++)
             {

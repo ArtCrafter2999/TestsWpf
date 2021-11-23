@@ -34,3 +34,9 @@ C:\Users\Admin\source\repos\TestsWpf\TestCreator\obj\Debug\TestCreator.csproj.Ge
 C:\Users\Admin\source\repos\TestsWpf\TestCreator\obj\Debug\TestCreator.csproj.CoreCompileInputs.cache
 C:\Users\Admin\source\repos\TestsWpf\TestCreator\obj\Debug\TestCreator.exe
 C:\Users\Admin\source\repos\TestsWpf\TestCreator\obj\Debug\TestCreator.pdb
+C:\Users\Admin\source\repos\TestsWpf\TestCreator\obj\Debug\AnswerModel.g.cs
+C:\Users\Admin\source\repos\TestsWpf\TestCreator\obj\Debug\TestButton.g.cs
+C:\Users\Admin\source\repos\TestsWpf\TestCreator\obj\Debug\AnswerModel.baml
+C:\Users\Admin\source\repos\TestsWpf\TestCreator\obj\Debug\TestButton.baml
+C:\Users\Admin\source\repos\TestsWpf\TestCreator\obj\Debug\TestAddButton.g.cs
+C:\Users\Admin\source\repos\TestsWpf\TestCreator\obj\Debug\TestAddButton.baml

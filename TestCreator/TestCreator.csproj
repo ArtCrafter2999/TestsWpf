@@ -56,10 +56,19 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Answer.cs" />
+    <Compile Include="AnswerModel.xaml.cs">
+      <DependentUpon>AnswerModel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="TestAddButton.xaml.cs">
+      <DependentUpon>TestAddButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TestButton.xaml.cs">
+      <DependentUpon>TestButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TestField.xaml.cs">
       <DependentUpon>TestField.xaml</DependentUpon>
     </Compile>
@@ -71,7 +80,19 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="AnswerModel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TestAddButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TestButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
