@@ -28,13 +28,19 @@ namespace TestCreator
         private TestField _currentTest;
         public TestField CurrentTest { get => _currentTest; set { _currentTest = value; OnPropertyChanged("CurrentTest"); } }
 
+        public byte[] Crypt(byte[] bytes)
+        {
+            for (int i = 0; i < bytes.Length; i++)
+                bytes[i] ^= 1;
+            return bytes;
+        }
+
         public List<TestModel> Tests { get; set; } = new List<TestModel>();
         public int Hours { get; set; }
         public int Minutes { get; set; }
         public int Seconds { get; set; }
         public int MaxPoints { get; set; } = 12;
         public bool RandomQuestions { get; set; } = false;
-        public TestOptions OptionWindow { get; set; }
         public ICommand AddTest => new RelayCommand(o =>
         {
             var newTest = new TestModel();
@@ -42,10 +48,9 @@ namespace TestCreator
             Tests.Add(newTest);
             ReloadTest();
         });
-        public ICommand OptionsClose => new RelayCommand(o => { OptionWindow.DialogResult = true; OptionWindow.Close(); });
         public ICommand Options => new RelayCommand(o =>
         {
-            OptionWindow.ShowDialog();
+            new TestOptions(this).ShowDialog();
         });
         public ICommand RemoveTest => new RelayCommand(o => 
         {
@@ -58,7 +63,8 @@ namespace TestCreator
         public ICommand SaveAs => new RelayCommand(o => 
         {
             var Save = new SaveFileDialog();
-            Save.Filter = "Test File|*.test|Текстовый документ|*.txt";
+            Save.FileName = Title + ".test";
+            Save.Filter = "Test File|*.test";
             if (Save.ShowDialog() == true)
             {
                 _currentTest.ReloadTest();
@@ -124,9 +130,9 @@ namespace TestCreator
                     TestsNode.AppendChild(TestElement);
                 }
                 xDoc.AppendChild(TestsNode);
-                var DocumentString = xDoc.OuterXml;
-                //Crypt
-                File.WriteAllText(Save.FileName, DocumentString);
+                byte[] DocumentBytes = Encoding.UTF8.GetBytes(xDoc.OuterXml);
+                byte[] CryptDocument = Crypt(DocumentBytes);
+                File.WriteAllBytes(Save.FileName, CryptDocument);
             }
         });
 
@@ -135,8 +141,7 @@ namespace TestCreator
             InitializeComponent();
             DataContext = this;
             Title = "Новый тест";
-            OptionWindow = new TestOptions(this);
-            if (!OptionWindow.ShowDialog().Value) Close();
+            if (!new TestOptions(this).ShowDialog().Value) Close();
             AddTest.Execute(this);
         }
         

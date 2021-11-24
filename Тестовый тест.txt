@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Tests Title="Math and IT" Time="2h30m0s" MaxPoints="12" RandomQuestions="True">
+	<Test MultipleAnswers="False" StrictAnswer="False">
+		<Question>Как расшифровывается аббревиатура WWW?</Question>
+		<Answer IsCorrect="False">Windows Wide Wake</Answer>
+		<Answer IsCorrect="True">World Wide Web</Answer>
+		<Answer IsCorrect="False">World Word Wafer</Answer>
+		<Answer IsCorrect="False">Windows Wakeful Waiter</Answer>
+	</Test>
+	<Test MultipleAnswers="False" StrictAnswer="False">
+		<Question>На часах 3 часа 15 минут, сколько градусов между стрелками?</Question>
+		<Answer IsCorrect="False">15</Answer>
+		<Answer IsCorrect="True">7,5</Answer>
+		<Answer IsCorrect="False">0</Answer>
+		<Answer IsCorrect="False">90</Answer>
+	</Test>
+	<Test MultipleAnswers="False" StrictAnswer="False">
+		<Question>Существует около 350 дистрибутивов Linux</Question>
+		<Answer IsCorrect="True">Првада</Answer>
+		<Answer IsCorrect="False">Ложь</Answer>
+	</Test>
+	<Test MultipleAnswers="False" StrictAnswer="False">
+		<Question>Первый язык программирования - это ...</Question>
+		<Answer IsCorrect="False">Free Pascal</Answer>
+		<Answer IsCorrect="True">Fortan</Answer>
+		<Answer IsCorrect="False">C#</Answer>
+		<Answer IsCorrect="False">XML</Answer>
+	</Test>
+	<Test MultipleAnswers="False" StrictAnswer="False">
+		<Question>Командная строка является разработкой компании Ubisoft</Question>
+		<Answer IsCorrect="True">Правда</Answer>
+		<Answer IsCorrect="False">Ложь</Answer>
+	</Test>
+	<Test MultipleAnswers="False" StrictAnswer="False">
+		<Question>Более точный вид числа пи - 4,1375</Question>
+		<Answer IsCorrect="False">Правда</Answer>
+		<Answer IsCorrect="True">Ложь</Answer>
+	</Test>
+	<Test MultipleAnswers="False" StrictAnswer="False">
+		<Question>Кто был автором первого учебника геометрии?</Question>
+		<Answer IsCorrect="False">Пифагор</Answer>
+		<Answer IsCorrect="False">Эратосфен</Answer>
+		<Answer IsCorrect="True">Евклид</Answer>
+		<Answer IsCorrect="False">Елена Валерьевна</Answer>
+	</Test>
+	<Test MultipleAnswers="False" StrictAnswer="False">
+		<Question>Древнегреческий ученый. Самым знаменитым его открытием стало «решето», с помощью которого находят простые числа.</Question>
+		<Answer IsCorrect="False">Птолемей</Answer>
+		<Answer IsCorrect="True">Эратосфен</Answer>
+		<Answer IsCorrect="False">Пифагор</Answer>
+		<Answer IsCorrect="False">Архимед</Answer>
+	</Test>
+	<Test MultipleAnswers="False" StrictAnswer="False">
+		<Question>Чему равно (-1)2021?</Question>
+		<Answer IsCorrect="False">(-2021)</Answer>
+		<Answer IsCorrect="True">(-1)</Answer>
+		<Answer IsCorrect="False">1</Answer>
+		<Answer IsCorrect="False">2021</Answer>
+	</Test>
+	<Test MultipleAnswers="False" StrictAnswer="False">
+		<Question>Если вы посадите бесконечное количество обезьян за пишущие машинки, то одна из них напечатает произведение Шекспира</Question>
+		<Answer IsCorrect="True">Правда</Answer>
+		<Answer IsCorrect="False">Ложь</Answer>
+	</Test>
+	<Test MultipleAnswers="False" StrictAnswer="False">
+		<Question>Специфическая единица измерения объёма нефти называется ...</Question>
+		<Answer IsCorrect="True">Баррель</Answer>
+		<Answer IsCorrect="False">Галлон</Answer>
+		<Answer IsCorrect="False">Литр</Answer>
+		<Answer IsCorrect="False">Тонна</Answer>
+	</Test>
+	<Test MultipleAnswers="False" StrictAnswer="False">
+		<Question>Король пригласил 8 рыцарей для участия в турнире. Сколько приветствий было всего отдано ими друг другу?</Question>
+		<Answer IsCorrect="False">18 приветствий</Answer>
+		<Answer IsCorrect="False">24 приветствия</Answer>
+		<Answer IsCorrect="False">8 приветствий</Answer>
+		<Answer IsCorrect="True">36 приветствий</Answer>
+	</Test>
+	<Test MultipleAnswers="True" StrictAnswer="False">
+		<Question>Выберите все текствые редакторы</Question>
+		<Answer IsCorrect="False">PacMan</Answer>
+		<Answer IsCorrect="True">Word</Answer>
+		<Answer IsCorrect="False">Amazon Pages</Answer>
+		<Answer IsCorrect="False">Samsung Pages</Answer>
+		<Answer IsCorrect="True">Wordpad</Answer>
+		<Answer IsCorrect="True">Notepad++</Answer>
+		<Answer IsCorrect="False">WinRar</Answer>
+	</Test>
+	<Test MultipleAnswers="True" StrictAnswer="False">
+		<Question>Выберите все языки программирования</Question>
+		<Answer IsCorrect="False">Html</Answer>
+		<Answer IsCorrect="True">Ruby</Answer>
+		<Answer IsCorrect="False">GoDot</Answer>
+		<Answer IsCorrect="False">Node JS</Answer>
+		<Answer IsCorrect="True">XML</Answer>
+		<Answer IsCorrect="True">C#</Answer>
+	</Test>
+</Tests>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
@@ -111,6 +112,13 @@ namespace TestsWpf
             }
         }
 
+        public byte[] Crypt(byte[] bytes)
+        {
+            for (int i = 0; i < bytes.Length; i++)
+                bytes[i] ^= 1;
+            return bytes;
+        }
+
         public List<TestModel> Tests { get; set; } = new List<TestModel>();
         public string Time;
         public int MaxPoints;
@@ -122,13 +130,13 @@ namespace TestsWpf
             DataContext = this;
 
             var Open = new OpenFileDialog();
-            Open.Filter = "Text File|*.txt|Test File|*.test";
+            Open.Filter = "Test File|*.test";
             if (Open.ShowDialog() == true)
             {
                 try
                 {
-                    string xml = File.ReadAllText(Open.FileName);
-                    //Decrypt
+                    byte[] ByteDocument = File.ReadAllBytes(Open.FileName);
+                    string xml = Encoding.UTF8.GetString(Crypt(ByteDocument));
                     XmlDocument xDoc = new XmlDocument();
                     xDoc.LoadXml(xml);
                     XmlElement TestsNode = xDoc.DocumentElement;
@@ -218,7 +226,7 @@ namespace TestsWpf
             }
             else
             {
-                int i = 0;
+                int i = 1;
                 foreach (var Test in Tests)
                 {
                     Wrap.Children.Add(new TestButton(i++.ToString(), this, Test));
@@ -237,11 +245,12 @@ namespace TestsWpf
 
         private void DispatcherTimer_Tick(object sender, EventArgs e)
         {
-            _timePassed -= dispatcherTimer.Interval;
+            _timePassed += dispatcherTimer.Interval;
             if (_timePassed >= TestTime)
             {
                 Close();
                 MessageBox.Show("Тест не здан вовремя", "Тест не сдан", MessageBoxButton.OK, MessageBoxImage.Information);
+                Log.Write("Тест не здан вовремя");
             }
             OnPropertyChanged("TimeString");
         }

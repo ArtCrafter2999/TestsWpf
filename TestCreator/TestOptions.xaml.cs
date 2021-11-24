@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Command;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,10 +20,13 @@ namespace TestCreator
     /// </summary>
     public partial class TestOptions : Window
     {
-        public TestOptions(MainWindow From)
+        public ICommand OptionsClose => new RelayCommand(o => {DialogResult = true; Close(); });
+        public MainWindow From { get; set; }
+        public TestOptions(MainWindow from)
         {
             InitializeComponent();
-            DataContext = From;
+            DataContext = this;
+            From = from;
         }
     }
 }
