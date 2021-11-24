@@ -37,7 +37,7 @@ namespace TestsWpf
         {
             if (!TestComplited)
             {
-                Log.Write("Окно активно");
+                Log.Write("Окно активно"); // add comment
             }
         }
     }
