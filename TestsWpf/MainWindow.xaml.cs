@@ -21,9 +21,11 @@ namespace TestsWpf
         public TestField CurrentTest { get; set; }
         public ICommand Complite => new RelayCommand(o =>
         {
+            
             Log.Write("Предупреждение: \"Вы уверены что хотите зваершить тест ? \"");
             if (MessageBox.Show("Вы уверены что хотите зваершить тест?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
+                App.TestComplited = true;
                 Close();
                 UserAnswers();
                 decimal PointsSum = 0m;
@@ -59,7 +61,6 @@ namespace TestsWpf
                 }
                 Log.Write($"Тест завершён: Правильно отвечено на {PointsSum:0.##} вопросов из {Tests.Count}");
                 MessageBox.Show($"<{Log.Name}> Тест завершён: \nВремя: {_timePassed.ToString(@"hh\:mm\:ss")}\nПравильно отвечено на {PointsSum:0.##} вопросов из {Tests.Count}\nПроцент ответов: {PointsSum / Tests.Count * 100:0.##}%\nПолучено балов: {(PointsSum / Tests.Count * MaxPoints):0}/{MaxPoints}", "Тест завершён", MessageBoxButton.OK);
-                
             }
         }, o =>
         {
@@ -123,8 +124,7 @@ namespace TestsWpf
         public string Time;
         public int MaxPoints;
         public bool RandomQuestions;
-
-        public void Edit(string FilePath)
+        public void Start(string FilePath)
         {
             try
             {
@@ -179,12 +179,13 @@ namespace TestsWpf
         {
             InitializeComponent();
             DataContext = this;
-
+            
             var Open = new OpenFileDialog();
             Open.Filter = "Test File|*.test";
             if (Open.ShowDialog() == true)
             {
-                Edit(Open.FileName);
+                Start(Open.FileName);
+                App.TestComplited = false;
             }
             else
             {
@@ -195,7 +196,8 @@ namespace TestsWpf
         {
             InitializeComponent();
             DataContext = this;
-            Edit(FilePath);
+            Start(FilePath);
+            App.TestComplited = false;
         }
 
         private DispatcherTimer dispatcherTimer;
@@ -257,21 +259,13 @@ namespace TestsWpf
         private void DispatcherTimer_Tick(object sender, EventArgs e)
         {
             _timePassed += dispatcherTimer.Interval;
-            if (_timePassed >= TestTime)
+            if (_timePassed >= TestTime && !App.TestComplited)
             {
                 Close();
                 MessageBox.Show("Тест не здан вовремя", "Тест не сдан", MessageBoxButton.OK, MessageBoxImage.Information);
                 Log.Write("Тест не здан вовремя");
             }
             OnPropertyChanged("TimeString");
-        }
-        public void WindowDeactivated(object sender, EventArgs e)
-        {
-            Log.Write("Окно не активно");
-        }
-        public void WindowActivated(object sender, EventArgs e)
-        {
-            Log.Write("Окно активно");
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

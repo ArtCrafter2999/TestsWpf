@@ -83,7 +83,6 @@ namespace TestCreator
         public ICommand SaveAsCommand => new RelayCommand(o => { SavePath = null; SaveCommand.Execute(this); });
         public void Save(object o = null)
         {
-
             _currentTest.ReloadTest();
             var xDoc = new XmlDocument();
             var TestsNode = xDoc.CreateElement("Tests");

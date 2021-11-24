@@ -23,3 +23,5 @@ D:\TestsWpf\TestCreator\obj\Debug\AnswerModel.baml
 D:\TestsWpf\TestCreator\obj\Debug\TestAddButton.baml
 D:\TestsWpf\TestCreator\obj\Debug\TestButton.baml
 D:\TestsWpf\TestCreator\obj\Debug\TestField.baml
+D:\TestsWpf\TestCreator\obj\Debug\OpenOrEditWindow.g.cs
+D:\TestsWpf\TestCreator\obj\Debug\OpenOrEditWindow.baml
