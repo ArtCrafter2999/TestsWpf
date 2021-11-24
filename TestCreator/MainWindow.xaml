@@ -9,14 +9,15 @@
     <Grid>
         <Menu Height="25" VerticalAlignment="Top">
             <MenuItem Header="Проект">
-                <MenuItem Header="Сохранить как"/>
-                <MenuItem Header="Настройки" Command="{Binding Path=Options}"/>   
+                <MenuItem Header="Сохранить как" Command="{Binding Path=SaveAs}"/>
+                <MenuItem Header="Настройки" Command="{Binding Path=Options}"/>
             </MenuItem>
         </Menu>
-        <!--Content="{Binding Path=CurrentTest}"-->
-        <GroupBox Name="MyGroup" Header="Тест" FontSize="16" Margin="60,20,10,60" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <GroupBox Name="MyGroup" Content="{Binding Path=CurrentTest}" Header="Тест" FontSize="16" Margin="60,20,10,60" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         <ScrollViewer VerticalScrollBarVisibility="Auto" Width="60" HorizontalAlignment="Left" Margin="0,30,0,10">
             <WrapPanel Name="Wrap" Orientation="Vertical"/>
         </ScrollViewer>
+        <Button Content="Удалить тест" Command="{Binding Path=RemoveTest}"  FontSize="16" Margin="65,364,592,10" Background="Red" Foreground="White"/>
+        <Button Content="Сохранить как" Command="{Binding Path=SaveAs}" FontSize="16" Margin="647,364,10,10" Background="Green" Foreground="White"/>
     </Grid>
 </Window>

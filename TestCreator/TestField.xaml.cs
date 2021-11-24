@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using Command;
 
@@ -13,6 +14,7 @@ namespace TestCreator
     {
         public ICommand SelectCommand => new RelayCommand(o =>
         {
+            From.CurrentTest?.ReloadTest();
             ReloadTest();
             From.CurrentTest = this;
         });
@@ -20,53 +22,58 @@ namespace TestCreator
         {
             var Answer = new Answer();
             Test.Answers.Add(Answer);
-            Stack.Children.Add(new AnswerModel(Answer, Stack.Children));
+            Stack.Children.Add(new AnswerModel(Answer, this));
             ReloadTest();
         });
         public string ButtonTitle { get; set; }
         public MainWindow From;
         public TestModel Test;
-        public TestField(MainWindow from, TestModel test)
+        public TestButton testButton;
+        public TestField(MainWindow fromWindow, TestButton fromButton, TestModel test)
         {
             InitializeComponent();
             DataContext = this;
-            From = from;
+
+            From = fromWindow;
             Test = test;
         }
+
+        public string Question { get => Test.Question; set { Test.Question = value;} }
+        public bool MultipleAnswer { get => Test.MultipleAnswer;
+            set { Test.MultipleAnswer = value; ReloadTest(); } }
+        public bool StrictAnswer { get => Test.StrictAnswer; set { Test.StrictAnswer = value; } }
         public void ReloadTest()
         {
-            Form();
             Stack.Children.Clear();
-            Stack.Children.Add(new TextBox() { Text = Test.Question, TextWrapping = TextWrapping.Wrap, FontSize = 20 });
-            Stack.Children.Add(new CheckBox() { Content = "Мульти-ответ", IsChecked = Test.MultipleAnswer });
-            if (Test.MultipleAnswer == true)
+            if (Test!=null)
             {
-                Stack.Children.Add(new CheckBox() { Content = "Строгий-ответ", IsChecked = Test.StrictAnswer });
-            }
-            else
-            {
-                Test.StrictAnswer = false;
-            }
-            Stack.Children.Add(new Separator());
-            foreach (var Answer in Test.Answers)
-            {
-                Stack.Children.Add(new AnswerModel(Answer, Stack.Children));
-            }
-            Stack.Children.Add(new Button() { Content = "+ Добавить вопрос", FontSize = 16, Command = AddAnswer });
-        }
-        public void Form()
-        {
-            if (Stack.Children.Count != 0)
-            {
-                Test = new TestModel();
-                Test.Question = (Stack.Children[0] as TextBox).Text;
-                Test.MultipleAnswer = (Stack.Children[1] as CheckBox).IsChecked.Value;
-                if (Test.MultipleAnswer)
+                var TextBox = new TextBox() { TextWrapping = TextWrapping.Wrap, FontSize = 20, DataContext = this };
+                TextBox.SetBinding(TextBox.TextProperty, "Question");
+                var text = Stack.Children.Add(TextBox);
+
+                var checkBox = new CheckBox() { Content = "Мульти-ответ" };
+                checkBox.SetBinding(ToggleButton.IsCheckedProperty, "MultipleAnswer");
+                Stack.Children.Add(checkBox);
+                if (Test.MultipleAnswer == true)
                 {
-                    Test.StrictAnswer = (Stack.Children[2] as CheckBox).IsChecked.Value;
+                    checkBox = new CheckBox() { Content = "Строгий-ответ" };
+                    checkBox.SetBinding(ToggleButton.IsCheckedProperty, "StrictAnswer");
+                    Stack.Children.Add(checkBox);
                 }
+                else
+                {
+                    Test.StrictAnswer = false;
+                }
+                Stack.Children.Add(new Separator());
+                foreach (var Answer in Test.Answers)
+                {
+                    Stack.Children.Add(new AnswerModel(Answer, this));
+                }
+                Stack.Children.Add(new Button() { Content = "+ Добавить вариант ответа", FontSize = 16, Command = AddAnswer });
             }
+            
         }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")

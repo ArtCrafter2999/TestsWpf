@@ -21,14 +21,14 @@ namespace TestCreator
     public partial class AnswerModel : UserControl
     {
         public Answer Answer { get; set; }
-        public UIElementCollection Collection;
-        public ICommand Minus => new RelayCommand(o => { Collection.Remove(this);});
-        public AnswerModel(Answer answer, UIElementCollection collection)
+        public TestField Test;
+        public ICommand Minus => new RelayCommand(o => { Test.Test.Answers.Remove(Answer); Test.ReloadTest(); });
+        public AnswerModel(Answer answer, TestField test)
         {
             InitializeComponent();
             DataContext = this;
             Answer = answer;
-            Collection = collection;
+            Test = test;
         }
     }
 }

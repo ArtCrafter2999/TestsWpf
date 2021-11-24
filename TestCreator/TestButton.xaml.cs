@@ -23,7 +23,7 @@ namespace TestCreator
         public TestButton(string Title, MainWindow From, TestModel Question)
         {
             InitializeComponent();
-            DataContext = new TestField(From, Question) { ButtonTitle = Title };
+            DataContext = new TestField(From, this, Question) { ButtonTitle = Title };
         }
     }
 }

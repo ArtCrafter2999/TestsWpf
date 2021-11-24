@@ -26,11 +26,9 @@ namespace TestCreator
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
         private TestField _currentTest;
-        public TestField CurrentTest { get { MyGroup.Content = _currentTest; return _currentTest; }
-            set { _currentTest = value; OnPropertyChanged("CurrentTest"); MyGroup.Content = _currentTest; } }
+        public TestField CurrentTest { get => _currentTest; set { _currentTest = value; OnPropertyChanged("CurrentTest"); } }
 
         public List<TestModel> Tests { get; set; } = new List<TestModel>();
-        public TimeSpan Time => new TimeSpan(Hours, Minutes, Seconds);
         public int Hours { get; set; }
         public int Minutes { get; set; }
         public int Seconds { get; set; }
@@ -49,14 +47,30 @@ namespace TestCreator
         {
             OptionWindow.ShowDialog();
         });
+        public ICommand RemoveTest => new RelayCommand(o => 
+        {
+            Tests.Remove(_currentTest.Test);
+            _currentTest.Test = null;
+            _currentTest.ReloadTest();
+            _currentTest = null;
+            ReloadTest();
+        }, o => _currentTest != null && Tests.Count>1);
+        public ICommand SaveAs => new RelayCommand(o => 
+        {
+            var xDoc = new XmlDocument();
+            var TestsNode = xDoc.CreateElement("Tests");
+            var 
+            
+        });
 
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = this;
             Title = "Новый тест";
             OptionWindow = new TestOptions(this);
             if (!OptionWindow.ShowDialog().Value) Close();
-            ReloadTest();
+            AddTest.Execute(this);
         }
         
         public void ReloadTest()

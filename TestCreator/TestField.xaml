@@ -6,5 +6,7 @@
              xmlns:local="clr-namespace:TestCreator"
              mc:Ignorable="d" 
              d:DesignHeight="370" d:DesignWidth="730" Background="#FFF2F5FF">
-    <StackPanel Name="Stack" Orientation="Vertical"/>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Name="Stack" Orientation="Vertical"/>
+    </ScrollViewer>
 </UserControl>
