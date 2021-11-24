@@ -13,5 +13,16 @@ namespace TestsWpf
     /// </summary>
     public partial class App : Application
     {
+        void App_Startup(object sender, StartupEventArgs e)
+        {
+            string fileName = e.Args?.FirstOrDefault();
+            MainWindow mainWindow;
+            if (!string.IsNullOrWhiteSpace(fileName))
+                mainWindow = new MainWindow(fileName);
+            else
+                mainWindow = new MainWindow();
+
+            mainWindow.Show();
+        }
     }
 }

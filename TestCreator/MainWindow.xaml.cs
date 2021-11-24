@@ -162,47 +162,7 @@ namespace TestCreator
             Open.Filter = "Test File|*.test";
             if (Open.ShowDialog() == true)
             {
-                try
-                {
-                    byte[] ByteDocument = File.ReadAllBytes(Open.FileName);
-                    string xml = Encoding.UTF8.GetString(Crypt(ByteDocument));
-                    XmlDocument xDoc = new XmlDocument();
-                    xDoc.LoadXml(xml);
-                    XmlElement TestsNode = xDoc.DocumentElement;
-                    Title = TestsNode.Attributes.GetNamedItem("Title").Value;
-                    var Time = TestsNode.Attributes.GetNamedItem("Time").Value;
-                    var matches = Regex.Matches(Time, @"[^hms]+");
-                    Hours = int.Parse(matches[0].Value);
-                    Minutes = int.Parse(matches[1].Value);
-                    Seconds = int.Parse(matches[2].Value);
-                    MaxPoints = int.Parse(TestsNode.Attributes.GetNamedItem("MaxPoints").Value);
-                    RandomQuestions = bool.Parse(TestsNode.Attributes.GetNamedItem("RandomQuestions").Value);
-                    foreach (XmlNode TestNode in TestsNode.ChildNodes)
-                    {
-                        var Test = new TestModel();
-                        Test.MultipleAnswer = bool.Parse(TestNode.Attributes.GetNamedItem("MultipleAnswer").Value);
-                        Test.StrictAnswer = bool.Parse(TestNode.Attributes.GetNamedItem("StrictAnswer").Value);
-                        foreach (XmlNode ChildNode in TestNode.ChildNodes)
-                        {
-                            if (ChildNode.Name == "Question")
-                            {
-                                Test.Question = ChildNode.InnerText;
-                            }
-                            else if (ChildNode.Name == "Answer")
-                            {
-                                Test.Answers.Add(new Answer() { Text = ChildNode.InnerText, IsCorrect = bool.Parse(ChildNode.Attributes.GetNamedItem("IsCorrect").Value) });
-                            }
-                        }
-                        Tests.Add(Test);
-                    }
-                    SavePath = Open.FileName;
-                    ReloadTest();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    Close();
-                }
+                Edit(Open.FileName);
             }
             else
             {
@@ -210,12 +170,63 @@ namespace TestCreator
             }
         });
 
+        public void Edit(string FilePath)
+        {
+            try
+            {
+                byte[] ByteDocument = File.ReadAllBytes(FilePath);
+                string xml = Encoding.UTF8.GetString(Crypt(ByteDocument));
+                XmlDocument xDoc = new XmlDocument();
+                xDoc.LoadXml(xml);
+                XmlElement TestsNode = xDoc.DocumentElement;
+                Title = TestsNode.Attributes.GetNamedItem("Title").Value;
+                var Time = TestsNode.Attributes.GetNamedItem("Time").Value;
+                var matches = Regex.Matches(Time, @"[^hms]+");
+                Hours = int.Parse(matches[0].Value);
+                Minutes = int.Parse(matches[1].Value);
+                Seconds = int.Parse(matches[2].Value);
+                MaxPoints = int.Parse(TestsNode.Attributes.GetNamedItem("MaxPoints").Value);
+                RandomQuestions = bool.Parse(TestsNode.Attributes.GetNamedItem("RandomQuestions").Value);
+                foreach (XmlNode TestNode in TestsNode.ChildNodes)
+                {
+                    var Test = new TestModel();
+                    Test.MultipleAnswer = bool.Parse(TestNode.Attributes.GetNamedItem("MultipleAnswer").Value);
+                    Test.StrictAnswer = bool.Parse(TestNode.Attributes.GetNamedItem("StrictAnswer").Value);
+                    foreach (XmlNode ChildNode in TestNode.ChildNodes)
+                    {
+                        if (ChildNode.Name == "Question")
+                        {
+                            Test.Question = ChildNode.InnerText;
+                        }
+                        else if (ChildNode.Name == "Answer")
+                        {
+                            Test.Answers.Add(new Answer() { Text = ChildNode.InnerText, IsCorrect = bool.Parse(ChildNode.Attributes.GetNamedItem("IsCorrect").Value) });
+                        }
+                    }
+                    Tests.Add(Test);
+                }
+                SavePath = FilePath;
+                ReloadTest();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                Close();
+            }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
             DataContext = this;
             Title = "Новый тест";
             if (!new OpenOrEditWindow(this).ShowDialog().Value) Close();
+        }
+        public MainWindow(string FilePath)
+        {
+            InitializeComponent();
+            DataContext = this;
+            Edit(FilePath);
         }
 
         public void ReloadTest()
