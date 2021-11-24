@@ -6,10 +6,10 @@
              xmlns:local="clr-namespace:TestCreator"
              mc:Ignorable="d" 
              d:DesignHeight="40" d:DesignWidth="40">
-    <Button Command="{Binding Path=AddTest}">
+    <Button Command="{Binding Path=AddTest}" Margin="1">
         <Grid>
-            <Line Stroke="DarkBlue" StrokeThickness="6"  X1="20" Y1="10" X2="20" Y2="30" Width="38" Height="38" Margin="-2,-2,0,0"/>
-            <Line Stroke="DarkBlue" StrokeThickness="6"  Y1="20" X1="10" Y2="20" X2="30" Width="38" Height="38" Margin="-2,-2,0,0"/>
+            <Line Stroke="SeaGreen" StrokeThickness="6"  X1="20" Y1="10" X2="20" Y2="30" Width="38" Height="38" Margin="-2,-2,0,0"/>
+            <Line Stroke="SeaGreen" StrokeThickness="6"  Y1="20" X1="10" Y2="20" X2="30" Width="38" Height="38" Margin="-2,-2,0,0"/>
         </Grid>
     </Button>
 </UserControl>

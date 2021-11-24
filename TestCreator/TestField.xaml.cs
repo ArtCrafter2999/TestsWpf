@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using System.Windows.Media;
 using Command;
 
 namespace TestCreator
@@ -14,9 +15,12 @@ namespace TestCreator
     {
         public ICommand SelectCommand => new RelayCommand(o =>
         {
-            From.CurrentTest?.ReloadTest();
+            var PrevTest = From.CurrentTest;
+            PrevTest?.ReloadTest();
             ReloadTest();
             From.CurrentTest = this;
+            PrevTest?.OnPropertyChanged("ButtonColor");
+            OnPropertyChanged("ButtonColor");
         });
         public ICommand AddAnswer => new RelayCommand(o => 
         {
@@ -27,6 +31,19 @@ namespace TestCreator
             ReloadTest();
         });
         public string ButtonTitle { get; set; }
+        public string ButtonColor { 
+            get 
+            {
+                if (From?.CurrentTest.testButton == testButton)
+                {
+                    return "SeaGreen";
+                }
+                else
+                {
+                    return "DarkSeaGreen";
+                }
+            }
+        }
         public MainWindow From;
         public TestModel Test;
         public TestButton testButton;
@@ -34,9 +51,10 @@ namespace TestCreator
         {
             InitializeComponent();
             DataContext = this;
-
+            testButton = fromButton;
             From = fromWindow;
             Test = test;
+            OnPropertyChanged("ButtonColor");
         }
 
         public string Question { get => Test.Question; set { Test.Question = value;} }

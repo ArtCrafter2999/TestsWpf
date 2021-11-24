@@ -38,11 +38,11 @@ namespace TestsWpf
                     case TestState.NotViewed:
                         return "WhiteSmoke";
                     case TestState.Slected:
-                        return "Blue";
+                        return "SeaGreen";
                     case TestState.Skipped:
                         return "DarkGray";
                     case TestState.Answered:
-                        return "LightGreen";
+                        return "DarkSeaGreen";
                     default:
                         return "WhiteSmoke";
                 }

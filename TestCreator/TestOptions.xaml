@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestCreator"
         mc:Ignorable="d"
-        Title="TestOptions" Height="224" Width="350">
+        Title="Настройки" Height="224" Width="350">
     <Grid>
         <Label Content="Название теста:" Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
         <TextBox Text="{Binding Path=From.Title, UpdateSourceTrigger=PropertyChanged}" Margin="111,15,10,0" VerticalAlignment="Top"/>

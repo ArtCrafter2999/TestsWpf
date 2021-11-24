@@ -9,7 +9,8 @@
     <Grid>
         <Menu Height="25" VerticalAlignment="Top">
             <MenuItem Header="Проект">
-                <MenuItem Header="Сохранить как" Command="{Binding Path=SaveAs}"/>
+                <MenuItem Header="Сохранить" Command="{Binding Path=SaveCommand}"/>
+                <MenuItem Header="Сохранить как" Command="{Binding Path=SaveAsCommand}"/>
                 <MenuItem Header="Настройки" Command="{Binding Path=Options}"/>
             </MenuItem>
         </Menu>
@@ -17,7 +18,7 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto" Width="60" HorizontalAlignment="Left" Margin="0,30,0,10">
             <WrapPanel Name="Wrap" Orientation="Vertical"/>
         </ScrollViewer>
-        <Button Content="Удалить тест" Command="{Binding Path=RemoveTest}"  FontSize="16" Margin="65,364,592,10" Background="Red" Foreground="White"/>
-        <Button Content="Сохранить как" Command="{Binding Path=SaveAs}" FontSize="16" Margin="647,364,10,10" Background="Green" Foreground="White"/>
+        <Button Content="Удалить вопрос" Command="{Binding Path=RemoveTest}"  FontSize="16" Margin="65,364,592,10" Background="SeaGreen" Foreground="White"/>
+        <Button Content="Сохранить" Command="{Binding Path=SaveCommand}" FontSize="16" Margin="647,364,10,10" Background="LightSeaGreen" Foreground="White"/>
     </Grid>
 </Window>

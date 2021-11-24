@@ -6,5 +6,5 @@
              xmlns:local="clr-namespace:TestCreator"
              mc:Ignorable="d" 
              d:DesignHeight="40" d:DesignWidth="40">
-    <Button Content="{Binding Path=ButtonTitle}" Command="{Binding Path=SelectCommand}" Height="40" Margin="0"/>
+    <Button Content="{Binding Path=ButtonTitle}" Command="{Binding Path=SelectCommand}" Background="{Binding Path=ButtonColor}" Height="40" Margin="1"/>
 </UserControl>
