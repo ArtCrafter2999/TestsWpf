@@ -7,10 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Deactivated="WindowDeactivated" Activated="WindowActivated">
     <Grid>
-        <GroupBox Content="{Binding Path=CurrentTest}" Header="{Binding Path=TimeString}" Margin="60,20,10,60" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <GroupBox Content="{Binding Path=CurrentTest}" Header="{Binding Path=TimeString}" Margin="60,20,10,60" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush="LightSeaGreen"/>
         <ScrollViewer VerticalScrollBarVisibility="Auto" Width="60" HorizontalAlignment="Left" Margin="0,10,0,10">
             <WrapPanel Name="Wrap" Orientation="Vertical"/>
         </ScrollViewer>
-        <Button Content="Завершить тест" Command="{Binding Path=Complite}" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" Width="130" Height="33"/>
+        <Button Content="Завершить тест" Background="lightSeaGreen" Command="{Binding Path=Complite}" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" Width="130" Height="33"/>
     </Grid>
 </Window>

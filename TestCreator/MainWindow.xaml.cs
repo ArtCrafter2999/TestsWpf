@@ -153,7 +153,6 @@ namespace TestCreator
         }
         public ICommand NewCommand => new RelayCommand(o =>
         {
-            if (!new OpenOrEditWindow(this).ShowDialog().Value) Close();
             AddTest.Execute(this);
             ReloadTest();
         });

@@ -14,7 +14,7 @@
                 <MenuItem Header="Настройки" Command="{Binding Path=Options}"/>
             </MenuItem>
         </Menu>
-        <GroupBox Name="MyGroup" Content="{Binding Path=CurrentTest}" Header="Тест" FontSize="16" Margin="60,20,10,60" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <GroupBox Name="MyGroup" Content="{Binding Path=CurrentTest}" Header="Тест" FontSize="16" Margin="60,20,10,60" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush="LightSeaGreen"/>
         <ScrollViewer VerticalScrollBarVisibility="Auto" Width="60" HorizontalAlignment="Left" Margin="0,30,0,10">
             <WrapPanel Name="Wrap" Orientation="Vertical"/>
         </ScrollViewer>
