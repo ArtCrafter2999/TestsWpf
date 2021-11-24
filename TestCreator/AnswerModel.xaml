@@ -7,7 +7,7 @@
              mc:Ignorable="d" d:DesignWidth="730" Height="40">
     <Grid>
         <CheckBox IsChecked="{Binding Path=Answer.IsCorrect}" FontSize="16" Margin="10,13,0,7" HorizontalAlignment="left"/>
-        <TextBox Text="{Binding Path=Answer.Text, UpdateSourceTrigger=PropertyChanged}" FontSize="16" Margin="32,10,53,10"/>
-        <Button Command="{Binding Path=Minus}" Content="-" Margin="0,10,10,10" HorizontalAlignment="Right" Width="30" FontWeight="Black" FontSize="13"/>
+        <TextBox Text="{Binding Path=Answer.Text, UpdateSourceTrigger=PropertyChanged}" FontSize="16" Margin="32,5,53,5"/>
+        <Button Command="{Binding Path=Minus}" Content="-" Margin="0,5,5,5" HorizontalAlignment="Right" Width="43" FontWeight="Black" FontSize="13"/>
     </Grid>
 </UserControl>

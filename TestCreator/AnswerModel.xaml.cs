@@ -22,13 +22,15 @@ namespace TestCreator
     {
         public Answer Answer { get; set; }
         public TestField Test;
-        public ICommand Minus => new RelayCommand(o => { Test.Test.Answers.Remove(Answer); Test.ReloadTest(); });
+        public ICommand Minus => new RelayCommand(o => { Test.Test.Answers.Remove(Answer); Test.ReloadTest(); }, o => Index > 1);
+        public int Index;
         public AnswerModel(Answer answer, TestField test)
         {
             InitializeComponent();
             DataContext = this;
             Answer = answer;
             Test = test;
+            Index = Test.Test.Answers.FindIndex(o => o == Answer);
         }
     }
 }

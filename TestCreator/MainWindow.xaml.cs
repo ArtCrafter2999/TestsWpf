@@ -38,7 +38,7 @@ namespace TestCreator
         public ICommand AddTest => new RelayCommand(o =>
         {
             var newTest = new TestModel();
-            newTest.Answers = new List<Answer>() { new Answer() { Text = "Вопрос 1"}, new Answer() { Text = "Вопрос 2" } };
+            newTest.Answers = new List<Answer>() { new Answer() { Text = "Ответ 1"}, new Answer() { Text = "Ответ 2" } };
             Tests.Add(newTest);
             ReloadTest();
         });
@@ -57,10 +57,77 @@ namespace TestCreator
         }, o => _currentTest != null && Tests.Count>1);
         public ICommand SaveAs => new RelayCommand(o => 
         {
-            var xDoc = new XmlDocument();
-            var TestsNode = xDoc.CreateElement("Tests");
-            var 
-            
+            var Save = new SaveFileDialog();
+            Save.Filter = "Test File|*.test|Текстовый документ|*.txt";
+            if (Save.ShowDialog() == true)
+            {
+                _currentTest.ReloadTest();
+                var xDoc = new XmlDocument();
+                var TestsNode = xDoc.CreateElement("Tests");
+
+                var TitleAttr = xDoc.CreateAttribute("Title");
+                var TitleText = xDoc.CreateTextNode(Title);
+                TitleAttr.AppendChild(TitleText);
+
+                var TimeAttr = xDoc.CreateAttribute("Time");
+                var TimeText = xDoc.CreateTextNode($"{Hours}h{Minutes}m{Seconds}s");
+                TimeAttr.AppendChild(TimeText);
+
+                var MaxPointsAttr = xDoc.CreateAttribute("MaxPoints");
+                var MaxPointsText = xDoc.CreateTextNode(MaxPoints.ToString());
+                MaxPointsAttr.AppendChild(MaxPointsText);
+
+                var RandomQuestionsAttr = xDoc.CreateAttribute("RandomQuestions");
+                var RandomQuestionsText = xDoc.CreateTextNode(RandomQuestions.ToString());
+                RandomQuestionsAttr.AppendChild(RandomQuestionsText);
+
+                TestsNode.Attributes.Append(TitleAttr);
+                TestsNode.Attributes.Append(TimeAttr);
+                TestsNode.Attributes.Append(MaxPointsAttr);
+                TestsNode.Attributes.Append(RandomQuestionsAttr);
+
+                foreach (var Test in Tests)
+                {
+                    var TestElement = xDoc.CreateElement("Test");
+
+                    var MultipleAnswerAttr = xDoc.CreateAttribute("MultipleAnswer");
+                    var MultipleAnswerText = xDoc.CreateTextNode(Test.MultipleAnswer.ToString());
+                    MultipleAnswerAttr.AppendChild(MultipleAnswerText);
+
+                    var StrictAnswerAttr = xDoc.CreateAttribute("StrictAnswer");
+                    var StrictAnswerText = xDoc.CreateTextNode(Test.StrictAnswer.ToString());
+                    StrictAnswerAttr.AppendChild(StrictAnswerText);
+
+                    var QuestionElement = xDoc.CreateElement("Question");
+                    var QuestionText = xDoc.CreateTextNode(Test.Question);
+                    QuestionElement.AppendChild(QuestionText);
+
+                    TestElement.Attributes.Append(MultipleAnswerAttr);
+                    TestElement.Attributes.Append(StrictAnswerAttr);
+                    TestElement.AppendChild(QuestionElement);
+
+                    foreach (var Answer in Test.Answers)
+                    {
+                        var AnswerElement = xDoc.CreateElement("Answer");
+
+                        var IsCorrectAttr = xDoc.CreateAttribute("IsCorrect");
+                        var IsCorrectText = xDoc.CreateTextNode(Answer.IsCorrect.ToString());
+                        IsCorrectAttr.AppendChild(IsCorrectText);
+
+                        var AnswerText = xDoc.CreateTextNode(Answer.Text);
+
+                        AnswerElement.Attributes.Append(IsCorrectAttr);
+                        AnswerElement.AppendChild(AnswerText);
+
+                        TestElement.AppendChild(AnswerElement);
+                    }
+                    TestsNode.AppendChild(TestElement);
+                }
+                xDoc.AppendChild(TestsNode);
+                var DocumentString = xDoc.OuterXml;
+                //Crypt
+                File.WriteAllText(Save.FileName, DocumentString);
+            }
         });
 
         public MainWindow()

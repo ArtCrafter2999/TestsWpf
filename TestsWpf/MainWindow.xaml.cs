@@ -128,6 +128,7 @@ namespace TestsWpf
                 try
                 {
                     string xml = File.ReadAllText(Open.FileName);
+                    //Decrypt
                     XmlDocument xDoc = new XmlDocument();
                     xDoc.LoadXml(xml);
                     XmlElement TestsNode = xDoc.DocumentElement;
@@ -140,7 +141,7 @@ namespace TestsWpf
                     foreach (XmlNode TestNode in TestsNode.ChildNodes)
                     {
                         var Test = new TestModel();
-                        Test.MultipleAnswer = bool.Parse(TestNode.Attributes.GetNamedItem("MultipleAnswers").Value);
+                        Test.MultipleAnswer = bool.Parse(TestNode.Attributes.GetNamedItem("MultipleAnswer").Value);
                         Test.StrictAnswer = bool.Parse(TestNode.Attributes.GetNamedItem("StrictAnswer").Value);
                         foreach (XmlNode ChildNode in TestNode.ChildNodes)
                         {

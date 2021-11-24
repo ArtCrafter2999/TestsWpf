@@ -22,6 +22,7 @@ namespace TestCreator
         {
             var Answer = new Answer();
             Test.Answers.Add(Answer);
+            Answer.Text = $"Ответ {Test.Answers.Count}";
             Stack.Children.Add(new AnswerModel(Answer, this));
             ReloadTest();
         });

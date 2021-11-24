@@ -14,11 +14,11 @@
         <CheckBox Content="Перетасовывать вопросы" IsChecked="{Binding Path=RandomQuestions}" Margin="10,71,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
         <Button Command="{Binding Path=OptionsClose, UpdateSourceTrigger=PropertyChanged}" CommandParameter="" Content = "OK" Margin="0,0,10,10" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="25" Width="70"/>
         <Label Content="На прохождение" Margin="10,91,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <Label Content="Часов" Margin="68,117,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Label Content="Часов" Margin="51,117,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
         <TextBox Text="{Binding Path=Hours, UpdateSourceTrigger=PropertyChanged}"  Margin="10,122,279,0" VerticalAlignment="Top"/>
-        <Label Content="Минут" Margin="174,117,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Label Content="Минут" Margin="157,117,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
         <TextBox Text="{Binding Path=Minutes, UpdateSourceTrigger=PropertyChanged}" Margin="116,122,173,0" VerticalAlignment="Top"/>
-        <Label Content="Секунд" Margin="282,117,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Label Content="Секунд" Margin="266,117,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
         <TextBox Text="{Binding Path=Seconds, UpdateSourceTrigger=PropertyChanged}" Margin="224,122,65,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>
